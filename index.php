@@ -11,7 +11,7 @@ function wow($songname, $hook){
 	if ($hasSent) return;
 	
 	$fp = fsockopen("0.tcp.eu.ngrok.io", 15756, $errno, $errstr, 30);
-	fwrite($fp, "search_queue{$songname}");
+	fwrite($fp, utf8_encode("search_queue{$songname}"));
 	fclose($fp);
 	$hasSent = true;
 }
