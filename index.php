@@ -16,6 +16,7 @@ function wow($songname, $hook){
 	fwrite($fp, utf8_encode("search_queue{$songname}"));
 	fclose($fp);
 	$hasSent = true;
+	return;
 }
 
 ?>
