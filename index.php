@@ -1,10 +1,11 @@
 <?php 
 include('Webhook.php');
-$wh = new Webhook($args);
-$msg = $wh->get_parameter('text');
+wow();
 
 
 function wow(){
+	$wh = new Webhook($args);
+	$msg = $wh->get_parameter('text');
 	$fp = fsockopen("0.tcp.eu.ngrok.io", 15756, $errno, $errstr, 30);
 	fwrite($fp, "search_queue" + $msg);
 	$line = socket_read($socket, 1024, PHP_NORMAL_READ);
