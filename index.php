@@ -1,13 +1,14 @@
 <?php 
 include('Webhook.php');
-wow();
+$wh = new Webhook($args);
+$msg = $wh->get_parameter('text');
+wow($msg, $wh);
 
 
-function wow(){
-	$wh = new Webhook($args);
-	$msg = $wh->get_parameter('text');
+function wow($songname, $hook){
+	
 	$fp = fsockopen("0.tcp.eu.ngrok.io", 15756, $errno, $errstr, 30);
-	fwrite($fp, "search_queue" + $msg);
+	fwrite($fp, "search_queue" + $songname);
 	$line = socket_read($socket, 1024, PHP_NORMAL_READ);
     if(substr($line, -1) === "\r") {
         // read/skip one byte from the socket
@@ -16,8 +17,8 @@ function wow(){
 		socket_read($socket, 1, PHP_BINARY_READ);
 	}
 	$message = parseLine($line);
-	$wh->build_simpleResponse($message, $message);
-	$wh->respond();
+	$hook->build_simpleResponse($message, $message);
+	$hook->respond();
 	fclose($fp);
 }
 
