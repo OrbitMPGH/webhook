@@ -1,6 +1,6 @@
 <?php 
 include('Webhook.php');
-$serverip = "typ ngrok eller nått";
+$serverip = "192.71.16.17";
 $wh = new Webhook($args);
 $msg = $wh->get_parameter('text');
 $wh->build_simpleResponse("Försöker lägga till {$msg}", "Försöker lägga till {$msg}");
@@ -13,7 +13,7 @@ function wow($songname, $hook){
 
 	if ($hasSent) return;
 	
-	$fp = fsockopen($serverip, 15756, $errno, $errstr, 30);
+	$fp = fsockopen($serverip, 100, $errno, $errstr, 30);
 	fwrite($fp, utf8_encode("search_queue{$songname}"));
 	fclose($fp);
 	$hasSent = true;
